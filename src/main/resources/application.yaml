@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: library
+  datasource:
+    url: jdbc:postgresql://localhost:5432/mylibrary
+    username: postgres
+    password: ahmed
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+  liquibase:
+    change-log: classpath:db/index.xml
