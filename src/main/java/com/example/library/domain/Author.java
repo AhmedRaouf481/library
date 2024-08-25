@@ -3,12 +3,15 @@ package com.example.library.domain;
 import java.time.LocalDate;
 import java.util.List;
 
+import org.apache.commons.lang3.builder.ToStringExclude;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Entity
 @Data
@@ -29,6 +32,7 @@ public class Author {
 
     @OneToMany(mappedBy = "author")
     @JsonIgnore
+    @ToString.Exclude
     private  List<Book> books;
     
 }
