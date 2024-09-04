@@ -2,6 +2,8 @@ package com.example.library.domain;
 
 import java.time.LocalDate;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.*;
 
 import lombok.Data;
@@ -15,6 +17,7 @@ public class BorrowRecord {
 
     @ManyToOne
     @JoinColumn(name = "book_id")
+    @JsonBackReference
     private Book book;
 
     @ManyToOne
@@ -25,14 +28,4 @@ public class BorrowRecord {
 
     private LocalDate returnDate;
 
-    @Override
-    public boolean equals(Object o) {
-        return true;
-
-    }
-
-    @Override
-    public int hashCode() {
-        return 1;
-    }
 }

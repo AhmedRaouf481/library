@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.library.domain.Borrower;
-import com.example.library.exceptions.CustomServiceException;
+import com.example.library.exceptions.ApiRequestException;
 import com.example.library.repository.BorrowerRepository;
 import com.example.library.service.BorrowerService;
 
@@ -32,13 +32,13 @@ public class BorrowerServiceImp implements BorrowerService{
     @Override
     public Borrower getById(Long id) {
         return borrowerRepository.findById(id)
-        .orElseThrow(() -> new CustomServiceException("Borrower with ID " + id + " not found"));
+        .orElseThrow(() -> new ApiRequestException("Borrower with ID " + id + " not found"));
     }
 
     @Override
     public Borrower updateBorrower(Long id, Borrower borrowerDetails) {
         Borrower borrower = borrowerRepository.findById(id)
-        .orElseThrow(() -> new CustomServiceException("Borrower with ID " + id + " not found"));
+        .orElseThrow(() -> new ApiRequestException("Borrower with ID " + id + " not found"));
         
         borrower.setName(borrowerDetails.getName());
         borrower.setEmail(borrowerDetails.getEmail());
@@ -51,7 +51,7 @@ public class BorrowerServiceImp implements BorrowerService{
     @Override
     public void deleteBorrower(Long id) {
         Borrower borrower = borrowerRepository.findById(id)
-        .orElseThrow(() -> new CustomServiceException("Borrower with ID " + id + " not found"));
+        .orElseThrow(() -> new ApiRequestException("Borrower with ID " + id + " not found"));
         
         borrowerRepository.delete(borrower);
     }

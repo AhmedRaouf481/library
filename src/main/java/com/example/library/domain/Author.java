@@ -3,9 +3,8 @@ package com.example.library.domain;
 import java.time.LocalDate;
 import java.util.List;
 
-import org.apache.commons.lang3.builder.ToStringExclude;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -31,8 +30,7 @@ public class Author {
     private LocalDate birthDate;
 
     @OneToMany(mappedBy = "author")
-    @JsonIgnore
-    @ToString.Exclude
+    @JsonManagedReference
     private  List<Book> books;
     
 }

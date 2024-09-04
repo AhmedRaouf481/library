@@ -9,7 +9,7 @@ import com.example.library.domain.Book;
 import com.example.library.domain.BorrowRecord;
 import com.example.library.domain.Borrower;
 import com.example.library.domain.request.BorrowRecordRequest;
-import com.example.library.exceptions.CustomServiceException;
+import com.example.library.exceptions.ApiRequestException;
 import com.example.library.repository.BookRepository;
 import com.example.library.repository.BorrowRecordRepository;
 import com.example.library.repository.BorrowerRepository;
@@ -33,10 +33,10 @@ public class BorrowRecordServiceImp implements BorrowRecordService{
         BorrowRecord borrowRecord = new BorrowRecord();
 
         Book book = bookRepository.findById(borrowRecordRequest.getBookId())
-        .orElseThrow(()->new CustomServiceException("Book with id " + borrowRecordRequest.getBookId()+" not found"));
+        .orElseThrow(()->new ApiRequestException("Book with id " + borrowRecordRequest.getBookId()+" not found"));
         
         Borrower borrower = borrowerRepository.findById(borrowRecordRequest.getBorrowerId())
-        .orElseThrow(()->new CustomServiceException("Borrower with id " + borrowRecordRequest.getBorrowerId()+" not found"));
+        .orElseThrow(()->new ApiRequestException("Borrower with id " + borrowRecordRequest.getBorrowerId()+" not found"));
 
         borrowRecord.setBook(book);
         borrowRecord.setBorrower(borrower);
@@ -53,13 +53,13 @@ public class BorrowRecordServiceImp implements BorrowRecordService{
     @Override
     public BorrowRecord getById(Long id) {
         return borrowRecordRepository.findById(id)
-        .orElseThrow(() -> new CustomServiceException("BorrowRecord with ID " + id + " not found"));
+        .orElseThrow(() -> new ApiRequestException("BorrowRecord with ID " + id + " not found"));
     }
 
     @Override
     public BorrowRecord updateBorrowRecord(Long id, BorrowRecord borrowRecordDetails) {
         BorrowRecord borrowRecord = borrowRecordRepository.findById(id)
-        .orElseThrow(() -> new CustomServiceException("BorrowRecord with ID " + id + " not found"));
+        .orElseThrow(() -> new ApiRequestException("BorrowRecord with ID " + id + " not found"));
         
         borrowRecord.setBorrowDate(borrowRecordDetails.getBorrowDate());
         borrowRecord.setReturnDate(borrowRecordDetails.getReturnDate());
@@ -70,7 +70,7 @@ public class BorrowRecordServiceImp implements BorrowRecordService{
     @Override
     public void deleteBorrowRecord(Long id) {
         BorrowRecord borrowRecord = borrowRecordRepository.findById(id)
-        .orElseThrow(() -> new CustomServiceException("BorrowRecord with ID " + id + " not found"));
+        .orElseThrow(() -> new ApiRequestException("BorrowRecord with ID " + id + " not found"));
         
         borrowRecordRepository.delete(borrowRecord);
     }

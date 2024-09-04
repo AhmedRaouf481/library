@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.library.domain.Author;
-import com.example.library.exceptions.CustomServiceException;
+import com.example.library.exceptions.ApiRequestException;
 import com.example.library.repository.AuthorRepository;
 import com.example.library.service.AuthorService;
 
@@ -32,13 +32,13 @@ public class AuthorServiceImp implements AuthorService{
     @Override
     public Author getById(Long id) {
         return authorRepository.findById(id)
-        .orElseThrow(() -> new CustomServiceException("Author with ID " + id + " not found"));
+        .orElseThrow(() -> new ApiRequestException("Author with ID " + id + " not found"));
     }
 
     @Override
     public Author updateAuthor(Long id, Author authorDetails) {
         Author author = authorRepository.findById(id)
-        .orElseThrow(() -> new CustomServiceException("Author with ID " + id + " not found"));
+        .orElseThrow(() -> new ApiRequestException("Author with ID " + id + " not found"));
         
         author.setName(authorDetails.getName());
         author.setNationality(authorDetails.getNationality());
@@ -50,7 +50,7 @@ public class AuthorServiceImp implements AuthorService{
     @Override
     public void deleteAuthor(Long id) {
         Author author = authorRepository.findById(id)
-        .orElseThrow(() -> new CustomServiceException("Author with ID " + id + " not found"));
+        .orElseThrow(() -> new ApiRequestException("Author with ID " + id + " not found"));
         
         authorRepository.delete(author);
     }

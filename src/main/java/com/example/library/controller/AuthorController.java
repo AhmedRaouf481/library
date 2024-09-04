@@ -4,12 +4,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.library.domain.Author;
-import com.example.library.exceptions.CustomServiceException;
 import com.example.library.service.AuthorService;
 
 import lombok.RequiredArgsConstructor;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,30 +34,19 @@ public class AuthorController {
 
     @GetMapping("/{id}")
     public ResponseEntity<?> getAuthorbyId(@PathVariable Long id) {
-        try {
             return ResponseEntity.ok(authorService.getById(id));
-        } catch (CustomServiceException e) {
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
-        }
+     
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<?> getMethodName(@PathVariable Long id, @RequestBody Author author) {
-        try {
             return ResponseEntity.ok(authorService.updateAuthor(id, author));
-        } catch (CustomServiceException e) {
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
-        }
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteAuthor(@PathVariable Long id) {
-        try {
             authorService.deleteAuthor(id);
             return ResponseEntity.ok("Author Deleted Succefully");
-        } catch (CustomServiceException e) {
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
-        }
     }
 
 }
